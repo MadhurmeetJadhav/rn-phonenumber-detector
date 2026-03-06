@@ -21,14 +21,21 @@
     "prepare": "npm run build"
   },
   "keywords": [
-    "react-native",
-    "phone-number",
-    "phone-detector",
-    "android",
-    "google-identity",
-    "autofill",
-    "sim"
-  ],
+  "react-native",
+  "phone-number",
+  "phone-detector",
+  "android",
+  "google-identity",
+  "autofill",
+  "sim",
+  "otp",
+  "phone-hint",
+  "phone-autofill",
+  "react-native-phone",
+  "mobile-number",
+  "phone-number-hint",
+  "google-hint-api"
+],
   "author": "Madhur Meet Jadhav",
   "license": "MIT",
   "peerDependencies": {

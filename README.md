@@ -2,13 +2,39 @@
 
 <p align="center">
   <img 
-    src="https://raw.githubusercontent.com/MadhurmeetJadhav/rn-phonenumber-detector/main/assets/ScreenShot.jpg" 
-    width="300" 
-    alt="Phone Number Hint Demo"
+    src="https://raw.githubusercontent.com/MadhurmeetJadhav/rn-phonenumber-detector/main/assets/banner.png" 
+    width="100%" 
+    alt="rn-phonenumber-detector banner"
   />
+
 </p>
 
-Auto-detect and fetch phone number on Android via Google Identity API. Supports auto-linking — no manual native setup needed.
+  <p align="center">
+    <img 
+      src="https://raw.githubusercontent.com/MadhurmeetJadhav/rn-phonenumber-detector/main/assets/ScreenShot.jpg" 
+      width="300" 
+      alt="Phone Number Hint Demo"
+    />
+</p>
+
+<p align="center">
+  <a href="https://www.npmjs.com/package/rn-phonenumber-detector">
+    <img src="https://img.shields.io/npm/v/rn-phonenumber-detector.svg" alt="npm version" />
+  </a>
+  <a href="https://www.npmjs.com/package/rn-phonenumber-detector">
+    <img src="https://img.shields.io/npm/dm/rn-phonenumber-detector.svg" alt="npm downloads" />
+  </a>
+  <a href="https://github.com/MadhurmeetJadhav/rn-phonenumber-detector/blob/main/LICENSE">
+    <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="license" />
+  </a>
+  <img src="https://img.shields.io/badge/platform-Android%20%7C%20iOS-brightgreen" alt="platform" />
+  <img src="https://img.shields.io/badge/react--native-%3E%3D0.70-blue" alt="react native version" />
+</p>
+
+<p align="center">
+  Auto-detect and fetch phone number on Android via Google Identity API.<br/>
+  Supports auto-linking — no manual native setup needed.
+</p>
 
 ---
 
@@ -78,12 +104,11 @@ const MyScreen = () => {
   const [inputValue, setInputValue] = useState('');
 
   const { triggerHint, loading } = usePhoneHint({
-    countryCallingCode: '91',         // strips +91 from result
-    onSuccess: (number) => setInputValue(number), // wire to your input
-    onError: () => {},                // silent fail
+    countryCallingCode: '91',
+    onSuccess: (number) => setInputValue(number),
+    onError: () => {},
   });
 
-  // trigger when screen is focused
   useEffect(() => {
     triggerHint();
   }, []);
@@ -108,7 +133,7 @@ No extra code needed. Just add these props to your `TextInput`:
 ```tsx
 <TextInput
   keyboardType="number-pad"
-  textContentType="telephoneNumber" // ✅ iOS shows number suggestion above keyboard
+  textContentType="telephoneNumber"
 />
 ```
 
@@ -130,9 +155,6 @@ requestPhoneHint(): Promise<string>
 ---
 
 ### `usePhoneHint(options)`
-```ts
-usePhoneHint(options?: UsePhoneHintOptions): UsePhoneHintResult
-```
 
 **Options:**
 
@@ -157,8 +179,8 @@ usePhoneHint(options?: UsePhoneHintOptions): UsePhoneHintResult
 
 | Platform | Support | Method |
 |---|---|---|
-| Android | ✅ | Google Identity Hint API — native bottom sheet |
-| iOS | ✅ | `textContentType='telephoneNumber'` — QuickType bar |
+| Android | ✅ | Google Identity Hint API |
+| iOS | ✅ | `textContentType='telephoneNumber'` |
 
 ---
 
@@ -172,6 +194,53 @@ usePhoneHint(options?: UsePhoneHintOptions): UsePhoneHintResult
 
 ---
 
+## Changelog
+
+### v1.0.7
+- Added auto-linking support
+- Improved README with complete usage docs
+- Added more keywords for discoverability
+
+### v1.0.1
+- Initial release
+- Android Google Identity API support
+- `requestPhoneHint` direct call
+- `usePhoneHint` hook
+
+---
+
+## Contributing
+
+Contributions are welcome! Here's how:
+
+1. Fork the repo
+2. Create your branch:
+```bash
+git checkout -b feature/my-feature
+```
+3. Commit your changes:
+```bash
+git commit -m "add my feature"
+```
+4. Push to your branch:
+```bash
+git push origin feature/my-feature
+```
+5. Open a Pull Request on GitHub
+
+Please make sure your code:
+- Has no TypeScript errors (`npm run build`)
+- Is tested on a real Android device
+- Updates the README if needed
+
+---
+
 ## License
 
-MIT © Madhurmeet Jadhav
+MIT © [Madhurmeet Jadhav](https://github.com/MadhurmeetJadhav)
+
+---
+
+<p align="center">
+  If this helped you, please ⭐ <a href="https://github.com/MadhurmeetJadhav/rn-phonenumber-detector">star the repo</a>!
+</p>
