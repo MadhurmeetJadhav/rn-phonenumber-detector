@@ -1,6 +1,6 @@
 {
   "name": "rn-phonenumber-detector",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Auto-detect and fetch phone number on Android via Google Identity API.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
