@@ -4,6 +4,10 @@
   "description": "Auto-detect and fetch phone number on Android via Google Identity API.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
+   "repository": {
+    "type": "git",
+    "url": "https://github.com/MadhurmeetJadhav/rn-phonenumber-detector.git"
+  },
   "files": [
     "src",
     "lib",
