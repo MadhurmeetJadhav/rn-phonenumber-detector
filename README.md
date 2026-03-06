@@ -1,3 +1,14 @@
+
+# rn-phonenumber-detector
+
+<p align="center">
+  <img 
+    src="https://raw.githubusercontent.com/MadhurmeetJadhav/rn-phonenumber-detector/main/assets/ScreenShot.jpg" 
+    width="300" 
+    alt="Phone Number Hint Demo"
+  />
+</p>
+
 # rn-phonenumber-detector
 
 Auto-detect and fetch phone number on Android via Google Identity API (no third-party dependencies). iOS uses native `textContentType` — no extra code needed.
