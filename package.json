@@ -8,13 +8,14 @@
     "type": "git",
     "url": "https://github.com/MadhurmeetJadhav/rn-phonenumber-detector.git"
   },
-  "files": [
-    "src",
-    "lib",
-    "android",
-    "ios",
-    "rn-phonenumber-detector.podspec"
-  ],
+ "files": [
+  "src",
+  "lib",
+  "android",
+  "ios",
+  "react-native.config.js",
+  "rn-phonenumber-detector.podspec"
+],
   "scripts": {
     "build": "tsc",
     "prepare": "npm run build"

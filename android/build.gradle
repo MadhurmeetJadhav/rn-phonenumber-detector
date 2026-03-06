@@ -1,0 +1,33 @@
+buildscript {
+  repositories {
+    google()
+    mavenCentral()
+  }
+  dependencies {
+    classpath 'com.android.tools.build:gradle:7.4.2'
+    classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.0'
+  }
+}
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+android {
+  compileSdkVersion 34
+  namespace 'com.madhur.phonenumberdetector'
+
+  defaultConfig {
+    minSdkVersion 21
+    targetSdkVersion 34
+  }
+}
+
+repositories {
+  google()
+  mavenCentral()
+}
+
+dependencies {
+  implementation 'com.facebook.react:react-native:+'
+  implementation 'com.google.android.gms:play-services-auth:21.0.0'
+}
