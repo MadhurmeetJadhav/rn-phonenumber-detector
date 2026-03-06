@@ -9,7 +9,7 @@
   />
 </p>
 
-# rn-phonenumber-detector
+
 
 Auto-detect and fetch phone number on Android via Google Identity API (no third-party dependencies). iOS uses native `textContentType` — no extra code needed.
 
