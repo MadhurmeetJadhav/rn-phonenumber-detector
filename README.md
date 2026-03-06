@@ -1,4 +1,3 @@
-
 # rn-phonenumber-detector
 
 <p align="center">
@@ -9,14 +8,9 @@
   />
 </p>
 
+Auto-detect and fetch phone number on Android via Google Identity API. Supports auto-linking — no manual native setup needed.
 
-
-Auto-detect and fetch phone number on Android via Google Identity API (no third-party dependencies). iOS uses native `textContentType` — no extra code needed.
-
-## Demo
-
-- Android → Google Hint API shows native bottom sheet with phone number
-- User selects → input pre-filled automatically ✅
+---
 
 ## Installation
 ```bash
@@ -27,98 +21,156 @@ npm install rn-phonenumber-detector
 
 ### Android Setup
 
-1. Add to `android/app/build.gradle`:
+Add to `android/app/build.gradle`:
 ```gradle
 dependencies {
     implementation 'com.google.android.gms:play-services-auth:21.0.0'
 }
 ```
 
-2. Register in `MainApplication.kt`:
-```kotlin
-import com.madhur.phonenumberdetector.PhoneNumberHintPackage
-
-override fun getPackages() = PackageList(this).packages.apply {
-    add(PhoneNumberHintPackage())
-}
-```
-
-3. Rebuild:
+Then rebuild:
 ```bash
 cd android && ./gradlew clean
 cd ..
 npx react-native run-android
 ```
 
-### iOS Setup
+That's it! Auto-linking handles the rest. ✅
 
-No setup needed. Use `textContentType='telephoneNumber'` on your `TextInput` — iOS handles the rest natively.
+---
 
 ## Usage
 
-### Hook (recommended)
+### Option 1 — Direct call (recommended)
+
+Best when you already have your own hook or state management:
+```ts
+import { requestPhoneHint } from 'rn-phonenumber-detector';
+import { Platform } from 'react-native';
+
+const triggerPhoneHint = () => {
+  if (Platform.OS !== 'android') return;
+
+  requestPhoneHint()
+    .then((number) => {
+      // number comes as +91XXXXXXXXXX
+      const stripped = number.replace(/^\+91/, '').trim();
+      setInputValue(stripped); // wire to your input state
+    })
+    .catch(() => {
+      // silent fail — user dismissed or no number found
+    });
+};
+
+// call it when screen is focused
+useEffect(() => {
+  triggerPhoneHint();
+}, []);
+```
+
+### Option 2 — Hook
+
+Best for simple use cases where you manage phone input directly:
 ```ts
 import { usePhoneHint } from 'rn-phonenumber-detector';
 
 const MyScreen = () => {
-  const { triggerHint, phoneNumber, loading } = usePhoneHint({
-    countryCallingCode: '91', // strips +91 from result
-    onSuccess: (number) => console.log('Got:', number),
-    onError: (err) => console.log('Error:', err),
+  const [inputValue, setInputValue] = useState('');
+
+  const { triggerHint, loading } = usePhoneHint({
+    countryCallingCode: '91',         // strips +91 from result
+    onSuccess: (number) => setInputValue(number), // wire to your input
+    onError: () => {},                // silent fail
   });
 
+  // trigger when screen is focused
   useEffect(() => {
-    triggerHint(); // trigger when screen is focused
+    triggerHint();
   }, []);
 
   return (
     <TextInput
-      value={phoneNumber}
+      value={inputValue}
+      onChangeText={setInputValue}
       keyboardType="number-pad"
       textContentType="telephoneNumber"
+      placeholder="Enter phone number"
     />
   );
 };
 ```
 
-### Direct call
-```ts
-import { requestPhoneHint } from 'rn-phonenumber-detector';
+---
 
-requestPhoneHint()
-  .then((number) => console.log(number)) // +919876543210
-  .catch(() => {}); // silent fail — user dismissed
+## iOS
+
+No extra code needed. Just add these props to your `TextInput`:
+```tsx
+<TextInput
+  keyboardType="number-pad"
+  textContentType="telephoneNumber" // ✅ iOS shows number suggestion above keyboard
+/>
 ```
+
+---
 
 ## API
 
+### `requestPhoneHint()`
+```ts
+requestPhoneHint(): Promise<string>
+```
+
+| | |
+|---|---|
+| Returns | `Promise<string>` — full number e.g. `+919876543210` |
+| Platform | Android only |
+| Fails | If user dismisses or no number found |
+
+---
+
 ### `usePhoneHint(options)`
+```ts
+usePhoneHint(options?: UsePhoneHintOptions): UsePhoneHintResult
+```
+
+**Options:**
 
 | Option | Type | Default | Description |
 |---|---|---|---|
-| `countryCallingCode` | `string` | `'91'` | Strips country code from result |
-| `onSuccess` | `(number: string) => void` | — | Called with stripped number |
+| `countryCallingCode` | `string` | `'91'` | Strips country code prefix from result |
+| `onSuccess` | `(number: string) => void` | — | Called with stripped local number |
 | `onError` | `(error: Error) => void` | — | Called on failure or dismiss |
 
-Returns `{ phoneNumber, loading, error, triggerHint }`
+**Returns:**
 
-### `requestPhoneHint()`
+| Value | Type | Description |
+|---|---|---|
+| `phoneNumber` | `string` | Auto-fetched local number |
+| `loading` | `boolean` | `true` while hint is being fetched |
+| `error` | `string \| null` | Error message if failed |
+| `triggerHint` | `() => void` | Call this to show the Google picker |
 
-Returns `Promise<string>` — resolves with full number e.g. `+919876543210`
+---
 
 ## Platform Support
 
 | Platform | Support | Method |
 |---|---|---|
-| Android | ✅ | Google Identity API — native bottom sheet |
+| Android | ✅ | Google Identity Hint API — native bottom sheet |
 | iOS | ✅ | `textContentType='telephoneNumber'` — QuickType bar |
+
+---
 
 ## Notes
 
-- Works only on real devices (not emulators)
-- Requires Google Play Services on Android
-- Fails silently if no number found — user types manually
-- Test on device with SIM + Google account linked
+- Works only on **real devices** — not emulators
+- Requires **Google Play Services** on Android
+- Fails **silently** if no number found — user types manually
+- Number format from `requestPhoneHint`: `+91XXXXXXXXXX`
+- Number format from `usePhoneHint` onSuccess: `XXXXXXXXXX` (country code stripped)
+
+---
 
 ## License
 
