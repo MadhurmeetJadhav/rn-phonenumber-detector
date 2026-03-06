@@ -1,0 +1,38 @@
+{
+  "name": "rn-phonenumber-detector",
+  "version": "1.0.0",
+  "description": "Auto-detect and fetch phone number on Android via Google Identity API.",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "src",
+    "lib",
+    "android",
+    "ios",
+    "rn-phonenumber-detector.podspec"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build"
+  },
+  "keywords": [
+    "react-native",
+    "phone-number",
+    "phone-detector",
+    "android",
+    "google-identity",
+    "autofill",
+    "sim"
+  ],
+  "author": "Madhur Meet Jadhav",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-native": "^0.73.0"
+  }
+}
